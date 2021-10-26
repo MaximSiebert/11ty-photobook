@@ -1,7 +1,7 @@
 const Image = require("@11ty/eleventy-img");
 const now = String(Date.now());
 
-let pathPrefix = "/11ty-tailwind-starter/";
+let pathPrefix = "/11ty-photobook/";
 
 async function imageShortcode(src, alt) {
   if(alt === undefined) {
