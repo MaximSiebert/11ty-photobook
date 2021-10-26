@@ -3,21 +3,21 @@ const now = String(Date.now());
 
 let pathPrefix = "/11ty-photobook/";
 
-async function imageShortcode(src, alt) {
+async function imageShortcode(src, alt, classes) {
   if(alt === undefined) {
     // You bet we throw an error on missing alt (alt="" works okay)
     throw new Error(`Missing \`alt\` on myImage from: ${src}`);
   }
 
   let metadata = await Image(src, {
-    widths: [600],
+    widths: [2000],
     formats: ["jpeg"],
     urlPath: `${pathPrefix}/images/`,
     outputDir: "./_site/images/"
   });
 
   let data = metadata.jpeg[metadata.jpeg.length - 1];
-  return `<img src="${data.url}" width="${data.width}" height="${data.height}" alt="${alt}" loading="lazy" decoding="async">`;
+  return `<img class="block ${classes}" src="${data.url}" width="${data.width}" height="${data.height}" alt="${alt}" loading="lazy" decoding="async">`;
 }
 
 module.exports = function (eleventyConfig) {

@@ -1,14 +1,19 @@
 {% extends "_includes/default.njk" %}
 
+{% block title %}{{ title }}{% endblock %}
+
 {% block content %}
-  {% include 'header.njk' %}
-  Post image: {% image image, imageAlt %}
-  <h1>Post title: {{ title }}</h1>
-  Post content: {{ content | safe }}
+  <main class="h-screen">
+    <div class="flex h-full p-12 {{ containerClasses }}">
+      {% image image, imageAlt, imageClasses %}
+    </div>
 
-  {% set previousPost = collections.post | getPreviousCollectionItem(page) %}
-  {% set nextPost = collections.post | getNextCollectionItem(page) %}
+    {% set previousPost = collections.post | getPreviousCollectionItem(page) %}
+    {% set nextPost = collections.post | getNextCollectionItem(page) %}
 
-  <p>{% if previousPost %}Previous post: <a href="{{ previousPost.url | url }}">{{ previousPost.data.title }}</a>{% endif %}</p>
-  <p>{% if nextPost %}Next post: <a href="{{ nextPost.url | url }}">{{ nextPost.data.title }}</a>{% endif %}</p>
+    <div class="absolute inset-0 flex {% if not previousPost %}justify-end{% endif %}">
+      {% if previousPost %}<a class="w-1/2 h-full" href="{{ previousPost.url | url }}"></a>{% endif %}
+      {% if nextPost %}<a class="w-1/2 h-full" href="{{ nextPost.url | url }}"></a>{% endif %}
+    </div>
+  </main>
 {% endblock %}
