@@ -13,8 +13,11 @@
       {%- endfor -%}
     </ul> #}
     
-    <div class="flex h-full p-12 fade-in-image {{ containerClasses }}">
+    <div class="flex h-full fade-in-image {% if border %}p-12{% endif %} {{ containerClasses }}">
       {% image image, imageAlt, imageClasses, widthClasses %}
+      {% if image2 %}
+        {% image image2, imageAlt, imageClasses, widthClasses %}
+      {% endif %}
     </div>
 
     {% set previousPost = collections.post | getPreviousCollectionItem(page) %}
