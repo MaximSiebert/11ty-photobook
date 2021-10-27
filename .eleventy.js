@@ -3,7 +3,7 @@ const now = String(Date.now());
 
 let pathPrefix = "/11ty-photobook/";
 
-async function imageShortcode(src, alt, classes) {
+async function imageShortcode(src, alt, classes, widthClasses) {
   if(alt === undefined) {
     // You bet we throw an error on missing alt (alt="" works okay)
     throw new Error(`Missing \`alt\` on myImage from: ${src}`);
@@ -17,7 +17,7 @@ async function imageShortcode(src, alt, classes) {
   });
 
   let data = metadata.jpeg[metadata.jpeg.length - 1];
-  return `<img class="block ${classes}" src="${data.url}" width="${data.width}" height="${data.height}" alt="${alt}" loading="lazy" decoding="async">`;
+  return `<div class="flex-shrink-0 ${widthClasses}"><img class="block ${classes}" src="${data.url}" width="${data.width}" height="${data.height}" alt="${alt}" loading="lazy" decoding="async"></div>`;
 }
 
 module.exports = function (eleventyConfig) {

@@ -3,17 +3,26 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-  <main class="h-screen">
-    <div class="flex h-full p-12 {{ containerClasses }}">
-      {% image image, imageAlt, imageClasses %}
+  <main class="h-screen bg-gray-100">
+
+    {# <ul class="fixed top-0 left-0 right-0 z-10 flex px-1 pt-2">
+      {%- for post in collections.post -%}
+        <li class="flex-grow px-1" {% if page.url == post.url %} aria-current="page" {% endif %}>
+          <a class="block h-1 {% if page.url == post.url %} bg-gray-300 {% else %} bg-gray-200 {% endif %}" href={{ post.url | url }}></a>
+        </li>
+      {%- endfor -%}
+    </ul> #}
+    
+    <div class="flex h-full p-12 fade-in-image {{ containerClasses }}">
+      {% image image, imageAlt, imageClasses, widthClasses %}
     </div>
 
     {% set previousPost = collections.post | getPreviousCollectionItem(page) %}
     {% set nextPost = collections.post | getNextCollectionItem(page) %}
 
     <div class="absolute inset-0 flex {% if not previousPost %}justify-end{% endif %}">
-      {% if previousPost %}<a class="w-1/2 h-full" href="{{ previousPost.url | url }}"></a>{% endif %}
-      {% if nextPost %}<a class="w-1/2 h-full" href="{{ nextPost.url | url }}"></a>{% endif %}
+      {% if previousPost %}<a class="w-1/2 h-full cursor-left" href="{{ previousPost.url | url }}"></a>{% endif %}
+      {% if nextPost %}<a class="w-1/2 h-full cursor-right" href="{{ nextPost.url | url }}"></a>{% endif %}
     </div>
   </main>
 {% endblock %}
